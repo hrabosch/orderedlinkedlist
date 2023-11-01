@@ -19,6 +19,7 @@ When adding element, following steps are done:
 ![jacoco report](docs/jacoco.png)
 
 ## TODOS
--[ ] ASC/DESC types support
--[ ] Unit tests - Exceptions
--[ ] Rewrite alg description in README to something more human-readable :alien:
+
+- [ ] ASC/DESC types support
+- [ ] Unit tests - Exceptions
+- [ ] Rewrite alg description in README to something more human-readable :alien:
