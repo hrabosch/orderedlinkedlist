@@ -1,23 +1,24 @@
-package org.example.list;
+package org.example;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.node.Node;
 
 /**
  * Basic implementation within Abstract Class of Ordered Linked List.
  * <p>
  * Default behaviour is ASC order. Possible improvement is ASC/DESC flag.
  * Please read carefully implementation of removing/adding of elements, where @{@link Object#equals(Object)} is used
- * for data comparison ({@link #remove(Object)} or {@link #get(int)}) but @{@link Comparable#compareTo(Object)} for
+ * for data comparison ({@link #remove(Comparable)} or {@link #get(int)}) but @{@link Comparable#compareTo(Object)} for
  * node insertion and order decision.
  *
  * @param <T> type available to use as a data - see @{@link Node} as a representation.
  */
 @Slf4j
-public abstract class OrderedLinkedList<T> {
+public abstract class OrderedLinkedList<T extends Comparable> {
     private Node<T> head = null;
 
-    public void add(Node<T> node) {
+    public abstract void add(T data);
+
+    void add(Node<T> node) {
         if (head == null) {
             this.head = node;
         } else {
@@ -27,7 +28,7 @@ public abstract class OrderedLinkedList<T> {
 
             while (current != null && !stopFlag) {
                 // ASC Order - can be checked by boolean flag if ASC or DESC in Factory
-                if (current.compareTo(node.getData()) < 0) {
+                if (current.getData().compareTo(node.getData()) > 0) {
                     stopFlag = true;
                 } else {
                     previous = current;
@@ -44,11 +45,12 @@ public abstract class OrderedLinkedList<T> {
         }
     }
 
-    public boolean remove(T data) {
+    public abstract boolean remove(T data);
+    protected boolean remove(Node<T> node) {
         Node<T> current = head;
         Node<T> previous = null;
         while (current != null) {
-            if (current.getData().equals(data)) {
+            if (current.getData().equals((node.getData()))) {
                 if (previous != null) {
                     previous.setNext(current.getNext());
                 }
@@ -87,7 +89,7 @@ public abstract class OrderedLinkedList<T> {
 
     public int getSize() {
         int count = 0;
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
             count += 1;
             current = current.getNext();
@@ -96,7 +98,7 @@ public abstract class OrderedLinkedList<T> {
     }
 
     public int getIndex(T data) {
-        Node current = head;
+        Node<T> current = head;
         int currentIndex = 0;
         while (current != null) {
             if (current.getData().equals(data)) {

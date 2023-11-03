@@ -1,7 +1,7 @@
 package org.example.list;
 
-import org.example.OrderedLinkedListFactory;
-import org.example.node.StringNode;
+import org.example.OrderedLinkedList;
+import org.example.StringOrderedLinkedList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,17 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StringOrderedLinkedListTest {
 
-    public final List<String> testingStrings = Arrays.asList("Lorem", "Ipsum", "dolor", "sit", "amet");
+    public final List<String> testingStrings = Arrays.asList("Lorem", "Ipsum", "Dolor", "Sit", "Amet");
 
     @Test
     @DisplayName("Test String OrderedLinkedList on adding elements, getting size, index and removing them.")
     void testRemovalBasedOnDataAndIndexLookup() {
         // GIVEN
-        OrderedLinkedList<String> list = OrderedLinkedListFactory.createOrderedLinkedList(OrderedLinkedListFactory.OrderedLinkedListType.STRING);
+        OrderedLinkedList<String> list = new StringOrderedLinkedList();
         String stringToRemove = testingStrings.get(0);
 
         // WHEN
-        testingStrings.forEach(string -> list.add(new StringNode(string)));
+        testingStrings.forEach(list::add);
         int index = list.getIndex(stringToRemove);
 
         //THEN

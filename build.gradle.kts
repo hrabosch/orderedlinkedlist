@@ -13,6 +13,8 @@ repositories {
 
 dependencies {
     implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation("org.openjdk.jmh:jmh-core:1.37")
+    annotationProcessor("org.openjdk.jmh:jmh-generator-annprocess:1.37")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")

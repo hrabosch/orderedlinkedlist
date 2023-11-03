@@ -1,7 +1,7 @@
 package org.example.list;
 
-import org.example.OrderedLinkedListFactory;
-import org.example.node.IntegerNode;
+import org.example.IntegerOrderedLinkedList;
+import org.example.OrderedLinkedList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,11 +18,11 @@ class IntegerOrderedLinkedListTest {
     @DisplayName("Test Integer OrderedLinkedList on adding elements, getting size, index and removing them.")
     void testRemovalBasedOnDataAndIndexLookup() {
         // GIVEN
-        OrderedLinkedList<Integer> list = OrderedLinkedListFactory.createOrderedLinkedList(OrderedLinkedListFactory.OrderedLinkedListType.INTEGER);
+        OrderedLinkedList<Integer> list = new IntegerOrderedLinkedList();
         Integer integerToRemove = testingIntegers.get(0);
 
         // WHEN
-        testingIntegers.forEach(number -> list.add(new IntegerNode(number)));
+        testingIntegers.forEach(list::add);
         int index = list.getIndex(integerToRemove);
 
         //THEN
@@ -35,8 +35,8 @@ class IntegerOrderedLinkedListTest {
 
         // THEN
         assertEquals(-1,index, "Index for non existing string has to be -1.");
-        assertTrue(list.getSize() == testingIntegers.size() - 1, "Tested list does not contains correct number of elements.");
-        assertTrue(list.get(0) < list.get(1), "First node is not in valid order.");
+        assertEquals(testingIntegers.size() - 1, list.getSize(), "Tested list does not contains correct number of elements.");
+        assertTrue(list.get(0) > list.get(1), "First node is not in valid order.");
     }
 
 }
